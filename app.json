@@ -1,0 +1,69 @@
+{
+    "id": "nl.dsmr.p1",
+    "name": {
+        "en": "Dutch Smart Meter"
+    },
+    "version": "0.0.1",
+    "compatibility": "*",
+    "author": {
+        "name": "Ramón Baas"
+    },
+	"category": "",
+	"images": {
+		"large": "assets/images/large.png",
+		"small": "assets/images/small.png"
+	},
+	"drivers": [
+		{
+			"id": "dsm",
+			"name": {
+				"en": "Smart Meter",
+				"nl": "Slimme Meter"
+			},
+			"class": "sensor",
+			"capabilities": [],
+			"images": {
+				"large": "drivers/dsm/assets/images/large.png",
+				"small": "drivers/dsm/assets/images/small.png"
+			},
+			"pair": [
+				{ "id": "dsm" }
+			],
+			"settings": [
+                {
+                    "type": "group",
+                    "label": {
+                        "en": "Network settings"
+                    },
+					"children": [
+                        {
+                            "id": "ip",
+                            "type": "text",
+                            "label": {
+                                "en": "IP address"
+                            },
+                            "value": "0.0.0.0"
+                        },
+						{
+                            "id": "port",
+                            "type": "number",
+                            "label": {
+                                "en": "IP port number"
+                            },
+                            "value": "23",
+							"attr": {
+								"min": 0,
+								"max": 65535
+							}
+                        }
+					]
+				}
+			]
+		}
+	],
+	"dependencies": [
+		{ "dsmr-api": "*" },
+		{ "node-crc": "crc" },
+		{ "node-dsmr-parser": "parser" }
+	]
+}

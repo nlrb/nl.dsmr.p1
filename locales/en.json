@@ -1,0 +1,18 @@
+{
+    "pair": {
+		"dsmr": {
+			"name": "Add Dutch Smart Meter",
+			"explain": "This application can connect to a Dutch Smart Meter that communicates serial data via TCP/IP. Please specify the location of the meter in the network.",
+			"network": {
+				"title": "Network",
+				"ip": "IP address : port",
+				"submit": "Search"
+			},
+			"search": {
+				"title": "Searching for a Dutch Smart Meter on __addr__...",
+				"success": "Found your Dutch Smart Meter. Device will be added.",
+				"failed": "Unable to locate the Dutch Smart Meter on __addr__!"
+			}
+		}
+	}
+}
