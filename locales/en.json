@@ -14,5 +14,6 @@
 				"failed": "Unable to locate the Dutch Smart Meter on __addr__!"
 			}
 		}
-	}
+	},
+	"no_meter": "Smart Meter not available"
 }

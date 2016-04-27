@@ -3,19 +3,23 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.0.1",
+    "version": "0.0.2",
     "compatibility": "*",
+	"description": {
+		"en": "Read the power and gas values of your Dutch Smart Meter.",
+		"nl": "Bekijk stroom and gas data van slimme meter."
+	},
     "author": {
         "name": "Ramón Baas"
     },
-	"category": "",
+	"category": "tools",
 	"images": {
 		"large": "assets/images/large.png",
 		"small": "assets/images/small.png"
 	},
 	"drivers": [
 		{
-			"id": "dsm",
+			"id": "dsmr",
 			"name": {
 				"en": "Smart Meter",
 				"nl": "Slimme Meter"
@@ -23,24 +27,26 @@
 			"class": "sensor",
 			"capabilities": [],
 			"images": {
-				"large": "drivers/dsm/assets/images/large.png",
-				"small": "drivers/dsm/assets/images/small.png"
+				"large": "drivers/dsmr/assets/images/large.png",
+				"small": "drivers/dsmr/assets/images/small.png"
 			},
 			"pair": [
-				{ "id": "dsm" }
+				{ "id": "dsmr" }
 			],
 			"settings": [
                 {
                     "type": "group",
                     "label": {
-                        "en": "Network settings"
+                        "en": "Network settings",
+						"nl": "Netwerk instellingen"
                     },
 					"children": [
                         {
                             "id": "ip",
                             "type": "text",
                             "label": {
-                                "en": "IP address"
+                                "en": "IP address",
+								"nl": "IP adres"
                             },
                             "value": "0.0.0.0"
                         },
@@ -48,7 +54,8 @@
                             "id": "port",
                             "type": "number",
                             "label": {
-                                "en": "IP port number"
+                                "en": "IP port number",
+								"nl": "IP poort nummer"
                             },
                             "value": "23",
 							"attr": {
@@ -57,7 +64,43 @@
 							}
                         }
 					]
+				},
+				{
+                    "type": "group",
+                    "label": {
+                        "en": "Power producers",
+						"nl": "Stroomproductie"
+                    },
+					"children": [
+                        {
+                            "id": "compensate",
+                            "type": "checkbox",
+                            "label": {
+                                "en": "Compensate for power producers",
+								"nl": "Compenseer voor stroomproductie"
+                            },
+                            "value": "true"
+                        }
+					]
 				}
+			]
+		},
+		{
+			"id": "sensor",
+			"name": {
+				"en": "Meter Values",
+				"nl": "Meetwaarden"
+			},
+			"class": "sensor",
+			"capabilities": [ "measure_power" ],
+			"images": {
+				"large": "drivers/sensor/assets/images/large.png",
+				"small": "drivers/sensor/assets/images/small.png"
+			},
+			"pair": [
+				{ "id": "select" },
+				{ "id": "list_devices", "template": "list_devices", "navigation": { "next": "add_devices" } },
+				{ "id": "add_devices", "template": "add_devices" }
 			]
 		}
 	],
@@ -65,5 +108,8 @@
 		{ "dsmr-api": "*" },
 		{ "node-crc": "crc" },
 		{ "node-dsmr-parser": "parser" }
-	]
+	],
+	"permissions": [
+        "homey:app:org.sunspec"
+    ]
 }

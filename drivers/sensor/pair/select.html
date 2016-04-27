@@ -1,0 +1,40 @@
+<div id ="all">
+	<img src="../assets/icon.svg" align="left" style="margin-right: 10px" height="30px"><p data-i18n="pair.sensor.explain"></p> 
+	<fieldset> 
+		<legend data-i18n="pair.sensor.title"></legend>
+		<img src="../../dsmr/assets/icon.svg" width="200px">
+		<p></p>
+		<div id="meterList">
+		</div>
+	</fieldset>
+</div>
+<script>
+	$('#all').hide();
+	Homey.on('start', function(meters) {
+		if (meters.length > 1) {
+			Homey.setTitle(__('pair.sensor.name')); 
+			for (var i = 0; i < meters.length; i++) {
+				var meter = meters[i];
+				var checked = i == 0 ? ' checked' : '';
+				var radioBtn = $('<input type="radio" name="select" id="' + meter.id + '" value="' + meter.id + '"' + checked + '>' +
+					' <label>' + meter.name + ' (' + meter.serial + ')</label><br>');
+				radioBtn.appendTo('#meterList');
+			}
+			$("input").on('click', function() {
+				var sel = $('input:checked').val();
+				Homey.emit('selected', sel);
+			});
+			Homey.emit('selected', meters[0].id); // default is first meter
+			$('#all').show();
+		} else if (meters.length == 1) {
+			Homey.emit('selected', meters[0].id, function(err, selection) {
+				if (!err) {
+					Homey.showView('list_devices');
+				}
+			});
+		} else {
+			$('#meterList').text(__('pair.add_meter'));
+			$('#all').show();
+		}
+	});
+</script>

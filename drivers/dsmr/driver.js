@@ -21,7 +21,7 @@ var self = module.exports = {
 		measure_power: {
 			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('actualWatt', device.id, function(err, val) {
+						dsmr.getValue('measuredWatt', device.id, function(err, val) {
 							dsmr.debug('measure_power ' + err + ':' + val);
 							callback(err, val);
 						});
@@ -31,7 +31,7 @@ var self = module.exports = {
 		meter_power: {
 			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('actualKwh', device.id, function(err, val) {
+						dsmr.getValue('sumKwh', device.id, function(err, val) {
 							dsmr.debug('meter_power ' + err + ':' + val);
 							callback(err, val);
 						});
@@ -41,7 +41,7 @@ var self = module.exports = {
 		meter_gas: {
 			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('actualGas', device.id, function(err, val) {
+						dsmr.getValue('sumGas', device.id, function(err, val) {
 							dsmr.debug('meter_gas ' + err + ':' + val);
 							callback(err, val);
 						});
@@ -85,7 +85,8 @@ var self = module.exports = {
 			// Add default settings
 			var settings = {
 				ip: data.ip,
-				port: Number(data.port)
+				port: Number(data.port),
+				compensate: true
 			}
 			dsmr.addMeter(self, null, settings);
 			callback(null, true);
