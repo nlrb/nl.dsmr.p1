@@ -86,7 +86,9 @@ var self = module.exports = {
 			var settings = {
 				ip: data.ip,
 				port: Number(data.port),
-				compensate: true
+				compensate: true,
+				onTime: true,
+				timeOffset: 1000
 			}
 			dsmr.addMeter(self, null, settings);
 			callback(null, true);

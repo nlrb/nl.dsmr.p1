@@ -3,7 +3,7 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.0.2",
+    "version": "0.0.3",
     "compatibility": "*",
 	"description": {
 		"en": "Read the power and gas values of your Dutch Smart Meter.",
@@ -17,6 +17,16 @@
 		"large": "assets/images/large.png",
 		"small": "assets/images/small.png"
 	},
+	"capabilities": {
+		"flow_gas": {
+			"type": "number",
+			"decimals": 2,
+			"title": { "en": "Gas flow", "nl": "Gasstroom" },
+			"units": { "en": "l/h" },
+			"getable": true,
+			"setable": false
+		}
+	},
 	"drivers": [
 		{
 			"id": "dsmr",
@@ -25,7 +35,12 @@
 				"nl": "Slimme Meter"
 			},
 			"class": "sensor",
-			"capabilities": [],
+			"capabilities": [
+				"measure_power", 
+				"meter_power", 
+				"meter_gas",
+				"flow_gas"
+			],
 			"images": {
 				"large": "drivers/dsmr/assets/images/large.png",
 				"small": "drivers/dsmr/assets/images/small.png"
@@ -57,7 +72,7 @@
                                 "en": "IP port number",
 								"nl": "IP poort nummer"
                             },
-                            "value": "23",
+                            "value": 23,
 							"attr": {
 								"min": 0,
 								"max": 65535
@@ -80,6 +95,28 @@
 								"nl": "Compenseer voor stroomproductie"
                             },
                             "value": "true"
+                        },
+                        {
+                            "id": "onTime",
+                            "type": "checkbox",
+                            "label": {
+                                "en": "Use DSMR timestamp for measurement",
+								"nl": "Gebruik slimme meter tijd voor meting"
+                            },
+                            "value": "true"
+                        },
+                        {
+                            "id": "timeOffset",
+                            "type": "number",
+                            "label": {
+                                "en": "Time offset to add to DSMR time (ms)",
+								"nl": "Extra tijd toevoegen aan DSMR tijd (ms)"
+                            },
+                            "value": 1000,
+							"attr": {
+								"min": -4000,
+								"max": 4000
+							}
                         }
 					]
 				}
