@@ -3,8 +3,8 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.0.3",
-    "compatibility": "*",
+    "version": "0.0.4",
+    "compatibility": ">=0.9.2",
 	"description": {
 		"en": "Read the power and gas values of your Dutch Smart Meter.",
 		"nl": "Bekijk stroom and gas data van slimme meter."
@@ -41,6 +41,24 @@
 				"meter_gas",
 				"flow_gas"
 			],
+			"mobile": {
+				"components": [
+					{
+						"id": "sensor",
+						"capabilities": [
+							"measure_power", 
+							"meter_power", 
+							"meter_gas",
+							"flow_gas"
+						],
+						"options": {
+							"icons": {
+								"flow_gas": "./drivers/sensor/assets/flow_gas.svg"
+							}
+						}
+					}
+				]
+			},
 			"images": {
 				"large": "drivers/dsmr/assets/images/large.png",
 				"small": "drivers/dsmr/assets/images/small.png"
@@ -94,7 +112,7 @@
                                 "en": "Compensate for power producers",
 								"nl": "Compenseer voor stroomproductie"
                             },
-                            "value": "true"
+                            "value": true
                         },
                         {
                             "id": "onTime",
@@ -103,7 +121,7 @@
                                 "en": "Use DSMR timestamp for measurement",
 								"nl": "Gebruik slimme meter tijd voor meting"
                             },
-                            "value": "true"
+                            "value": true
                         },
                         {
                             "id": "timeOffset",
