@@ -48,7 +48,9 @@ var self = module.exports = {
 		var selectedMeter;
 
 		// Let the front-end know which meters there are
-		socket.emit('start', dsmr.getMeters());
+		socket.on('loaded', function() {
+			socket.emit('start', dsmr.getMeters());
+		});
 
 		socket.on('selected', function(id, callback) {
 			selectedMeter = id;
