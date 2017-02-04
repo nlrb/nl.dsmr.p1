@@ -56,7 +56,7 @@ var self = module.exports = {
 					if (typeof callback == 'function') {
 						dsmr.getValue('flowGas', device_data.id, function(err, val) {
 							dsmr.debug('flow_gas ' + err + ':' + val);
-							callback(err, val || 0);
+							callback(err, val);
 						});
 					}
 			}
