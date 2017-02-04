@@ -22,9 +22,9 @@ var self = module.exports = {
 	
 	capabilities: {
 		measure_power: {
-			get: function(device_data, callback) {
+			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('measuredWatt', device_data.id, function(err, val) {
+						dsmr.getValue('measuredWatt', device.id, function(err, val) {
 							dsmr.debug('measure_power ' + err + ':' + val);
 							callback(err, val);
 						});
@@ -32,9 +32,9 @@ var self = module.exports = {
 			}
 		},
 		meter_power: {
-			get: function(device_data, callback) {
+			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('sumKwh', device_data.id, function(err, val) {
+						dsmr.getValue('sumKwh', device.id, function(err, val) {
 							dsmr.debug('meter_power ' + err + ':' + val);
 							callback(err, val);
 						});
@@ -42,9 +42,9 @@ var self = module.exports = {
 			}
 		},
 		meter_gas: {
-			get: function(device_data, callback) {
+			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('sumGas', device_data.id, function(err, val) {
+						dsmr.getValue('sumGas', device.id, function(err, val) {
 							dsmr.debug('meter_gas ' + err + ':' + val);
 							callback(err, val);
 						});
@@ -52,15 +52,20 @@ var self = module.exports = {
 			}
 		},
 		flow_gas: {
-			get: function(device_data, callback) {
+			get: function(device, callback) {
 					if (typeof callback == 'function') {
-						dsmr.getValue('flowGas', device_data.id, function(err, val) {
+						dsmr.getValue('flowGas', device.id, function(err, val) {
 							dsmr.debug('flow_gas ' + err + ':' + val);
 							callback(err, val || 0);
 						});
 					}
 			}
 		}
+	},
+	
+	deleted: function(device_data) {
+		// run when the user has deleted the panel from Homey
+		dsmr.deleteMeter(device_data.id);
 	},
 	
 	settings: function(device_data, newSettingsObj, oldSettingsObj, changedKeysArr, callback) {
@@ -84,11 +89,13 @@ var self = module.exports = {
 			var settings = {
 				ip: data.ip,
 				port: Number(data.port),
+				dsmrV4: data.dsmrV4,
 				compensate: true,
 				onTime: true,
 				timeOffset: 1000
 			}
 			dsmr.addMeter(self, null, settings);
+			var dsmrV4 = data.dsmrV4;
 			callback(null, true);
 		});
 		
