@@ -3,7 +3,7 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.0.5",
+    "version": "0.0.7",
     "compatibility": ">=1.1.0",
     "description": {
         "en": "Read the power and gas values of your Dutch Smart Meter.",
@@ -20,7 +20,7 @@
     "capabilities": {
         "flow_gas": {
             "type": "number",
-            "decimals": 2,
+            "decimals": 1,
             "title": { "en": "Gas flow", "nl": "Gasstroom" },
             "units": { "en": "l/h" },
             "getable": true,

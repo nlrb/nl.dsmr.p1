@@ -55,9 +55,10 @@
 		var ip = $('#pmIp').val();
 		var port = $('#pmPort').val();
 		var address = ip + ':' + port;
+		var dsmrV4 = $('#pmdsmrV4').prop('checked');
 		// Search for DSMR
 		displayMessage(__('pair.dsmr.search.title', { addr: address }), false);
-		Homey.emit('search', { 'ip': ip, 'port': port }, function(err, ok) {
+		Homey.emit('search', { 'ip': ip, 'port': port, 'dsmrV4': dsmrV4 }, function(err, ok) {
 		});
 		$('#search_button').prop('disabled', true);
 	}
@@ -77,10 +78,12 @@
 			var ip = $('#pmIp').val();
 			var port = $('#pmPort').val();
 			var address = ip + ':' + port;
+		        var dsmrV4 = $('#pmdsmrV4').val();
 			displayMessage(__('pair.dsmr.search.failed', { addr: address }), true);
 			$('#search_button').prop('disabled', false);
 			$('#pmIp').val('');
 			$('#pmPort').val('');
+			$('#pmdsmrV4').prop('checked', true);
 		}
 	}); 
 </script> 
@@ -99,7 +102,9 @@
 		<div class="oneline"><label for="network-ip" data-i18n="pair.dsmr.network.ip"></label><input class="network-input network-ip regular" id="pmIp" placeholder="0.0.0.0" ng-pattern="/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$/" required/></div>
 		&nbsp;&nbsp;&nbsp;:
 		<div class="oneline"><input class="network-input network-port regular" id="pmPort" placeholder="23" ng-pattern="/^\d+$/" required/></div>
-		<p></p>
+		<p></p>	
+	        <input type="checkbox" checked="checked" name="dsmrV4" value="true" id="pmdsmrV4"> <FONT size="2" FACE="Arial,Times New Roman"> DSMR protocol v4 (Only uncheck when your meter was not found.)</FONT><br>
+		<p></p>	
 		<button type="submit" id="search_button" class="button" data-i18n="pair.dsmr.network.submit"></button>
 	</form>
 </fieldset>
