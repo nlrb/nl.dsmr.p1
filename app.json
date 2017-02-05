@@ -20,7 +20,7 @@
     "capabilities": {
         "flow_gas": {
             "type": "number",
-            "decimals": 2,
+            "decimals": 1,
             "title": { "en": "Gas flow", "nl": "Gasstroom" },
             "units": { "en": "l/h" },
             "getable": true,
