@@ -3,7 +3,7 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.0.7",
+    "version": "0.0.8",
     "compatibility": ">=1.1.0",
     "description": {
         "en": "Read the power and gas values of your Dutch Smart Meter.",
@@ -43,6 +43,9 @@
             ],
             "mobile": {
                 "components": [
+				    {
+					    "id": "icon"
+					},
                     {
                         "id": "sensor",
                         "capabilities": [
