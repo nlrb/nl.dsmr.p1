@@ -3,8 +3,8 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.0.8",
-    "compatibility": ">=1.1.0",
+    "version": "0.1.0",
+    "compatibility": ">=3.0.0",
     "description": {
         "en": "Read the power and gas values of your Dutch Smart Meter.",
         "nl": "Bekijk stroom and gas data van slimme meter."
@@ -41,6 +41,9 @@
                 "meter_gas",
                 "flow_gas"
             ],
+            "energy": {
+                "cumulative": true
+            },
             "mobile": {
                 "components": [
 				    {
@@ -196,6 +199,9 @@
             },
             "class": "sensor",
             "capabilities": [ "measure_power" ],
+            "energy": {
+                "cumulative": true
+            },
             "images": {
                 "large": "drivers/sensor/assets/images/large.png",
                 "small": "drivers/sensor/assets/images/small.png"
@@ -212,7 +218,7 @@
         { "node-crc": "crc" },
         { "node-dsmr-parser": "parser" }
     ],
-    "permissions": [
+    "permissions": [    
         "homey:app:org.sunspec"
     ]
 }
