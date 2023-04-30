@@ -12,7 +12,10 @@
 				"title": "Searching for a Dutch Smart Meter on __addr__...",
 				"success": "Found your Dutch Smart Meter. Device will be added.",
 				"failed": "Unable to locate the Dutch Smart Meter on __addr__!"
-			}
+			},
+                        "add": {
+                                "title": "Adding DSMR device"
+                        }
 		}
 	},
 	"no_meter": "Smart Meter not available"

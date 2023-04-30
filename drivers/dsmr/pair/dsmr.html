@@ -29,10 +29,10 @@
 		border: 1px solid red;
 	}
 </style>
-<script type="application/javascript"> 
+<script type="application/javascript">
 	var timeout;
 	var msgPromise;
-	
+
 	// Display message to the user
 	function displayMessage(text, remove) {
 		if (msgPromise != null) {
@@ -47,8 +47,8 @@
 			}, 5000);
 		}
 	}
-	
-	Homey.setTitle(__('pair.dsmr.name')); 
+
+	Homey.setTitle(__('pair.dsmr.name'));
 
 	// Save the network configuration
 	function pmNetworkSave(form) {
@@ -58,21 +58,17 @@
 		// Search for DSMR
 		displayMessage(__('pair.dsmr.search.title', { addr: address }), false);
 		Homey.emit('search', { 'ip': ip, 'port': port }, function(err, ok) {
+			console.log(err, ok);
 		});
 		$('#search_button').prop('disabled', true);
 	}
 
 	Homey.on("found", function(data) {
+		console.log(data);
 		if (data.found) {
-			console.log(data.device);
-			Homey.addDevice(data.device, function(err, result) {
-				if (err) { 
-					console.log(err); 
-				} else {
-					Homey.emit('completed', data.device);
-				}
-				Homey.done();
-			});
+			// Move to next screen
+			window.dsmr_device = data.device;
+			Homey.nextView();
 		} else {
 			var ip = $('#pmIp').val();
 			var port = $('#pmPort').val();
@@ -82,16 +78,16 @@
 			$('#pmIp').val('');
 			$('#pmPort').val('');
 		}
-	}); 
-</script> 
+	});
+</script>
 
-<p data-i18n="pair.dsmr.explain"></p> 
+<p data-i18n="pair.dsmr.explain"></p>
 <fieldset id="message" class="message">
 	<legend>Message</legend>
 	<div id="messageContent" class="message-bar">
 	</div>
 </fieldset>
-<fieldset> 
+<fieldset>
 	<legend data-i18n="pair.dsmr.network.title"></legend>
 	<img src="../assets/icon.svg" width="200px">
 	<p></p>

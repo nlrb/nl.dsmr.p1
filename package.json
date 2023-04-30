@@ -1,0 +1,20 @@
+{
+  "name": "nl.dsmr.p1-v2",
+  "version": "1.0.0",
+  "description": "Homey app to read Dutch Smart Meter data",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "dsmr-api": "^1.0.0",
+    "node-crc": "^3.4.0",
+    "node-dsmr-parser": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ramon Baas",
+  "license": "ISC"
+}

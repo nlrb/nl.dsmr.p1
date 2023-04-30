@@ -1,16 +1,11 @@
-"use strict";
+'use strict';
 
-var dsmr = require('dsmr-api');
+const Homey = require('homey');
 
-function init() {
-	Homey.log("Dutch Smart Meter application started");
-	//dsmr.setDebug(true);
+class DsmrApp extends Homey.App {
+	onInit() {
+		this.log("Dutch Smart Meter application started");
+	}
 }
 
-module.exports = { 
-	api: { 
-		registerProducer: dsmr.registerProducer,
-		receiveProducerValue: dsmr.receiveProducerValue
-	},
-	init: init
-};
+module.exports = DsmrApp;

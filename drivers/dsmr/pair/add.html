@@ -1,0 +1,27 @@
+<script>
+  /*
+     Note: depends on implementation of 'list_devices' template
+     Uses variables 'selected_devices' (not 'found_devices')
+  */
+  Homey.setTitle(__('pair.dsmr.add.title'));
+  var devs = window.selected_devices;
+  var device = window.dsmr_device;
+  if (devs && devs.length > 0) {
+    for (let i = 0; i < devs.length; i++) {
+      let item = JSON.parse(devs[i]);
+      //console.log(item)
+      device.data.id += '/' + item.id;
+      device.capabilities.push(item.capability);
+      device.capabilitiesOptions = { ...device.capabilitiesOptions, ...item.options };
+    }
+    //console.log(device)
+    Homey.addDevice(device, (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        Homey.emit('completed', device);
+      }
+      Homey.done();
+    })
+  }
+</script>

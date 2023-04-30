@@ -3,28 +3,30 @@
     "name": {
         "en": "Dutch Smart Meter"
     },
-    "version": "0.1.0",
+    "version": "1.0.0",
+    "sdk": 2,
     "compatibility": ">=3.0.0",
     "description": {
         "en": "Read the power and gas values of your Dutch Smart Meter.",
-        "nl": "Bekijk stroom and gas data van slimme meter."
+        "nl": "Bekijk stroom and gas data van je slimme meter."
     },
     "author": {
         "name": "Ramón Baas"
     },
-    "category": "tools",
+    "category": "energy",
     "images": {
         "large": "assets/images/large.png",
         "small": "assets/images/small.png"
     },
     "capabilities": {
-        "flow_gas": {
+        "measure_gas": {
             "type": "number",
             "decimals": 1,
             "title": { "en": "Gas flow", "nl": "Gasstroom" },
             "units": { "en": "l/h" },
             "getable": true,
-            "setable": false
+            "setable": false,
+            "icon": "/assets/flow_gas.svg"
         }
     },
     "drivers": [
@@ -36,41 +38,56 @@
             },
             "class": "sensor",
             "capabilities": [
-                "measure_power", 
-                "meter_power", 
-                "meter_gas",
-                "flow_gas"
+                "measure_power",
+                "meter_power",
+                "measure_voltage",
+                "measure_current",
+                "measure_gas",
+                "meter_gas"
             ],
+            "capabilitiesOptions": {
+              "measure_power.used": { "title": { "en": "Usage", "nl": "Verbruik" } },
+            	"measure_power.returned": { "title": { "en": "Delivery", "nl": "Teruglevering" } },
+            	"measure_power": { "title": { "en": "Usage sum", "nl": "Verbruik som" } },
+            	"meter_power.t1.used": { "title": { "en": "Tariff 1 used", "nl": "Normaal tarief verbruikt" } },
+            	"meter_power.t1.returned": { "title": { "en": "Tariff 1 delivered", "nl": "Normaal tarief teruggeleverd" } },
+            	"meter_power.t1": { "title": { "en": "Tariff 1 sum", "nl": "Normaal tarief som" } },
+            	"meter_power.t2.used": { "title": { "en": "Tariff 2 used", "nl": "Daltarief verbruikt" } },
+            	"meter_power.t2.returned": { "title": { "en": "Tariff 2 delivered", "nl": "Daltarief teruggeleverd" } },
+            	"meter_power.t2": { "title": { "en": "Tariff 2 sum", "nl": "Daltarief som" } },
+            	"meter_power.used": { "title": { "en": "Total used", "nl": "Total gebruikt" } },
+            	"meter_power.returned": { "title": { "en": "Total delivered", "nl": "Totaal teruggeleverd" } },
+            	"meter_power": { "title": { "en": "Total usage", "nl": "Totale verbruik" } },
+            	"measure_voltage.l1": { "title": { "en": "Volage L1", "nl": "Voltage L1" } },
+            	"measure_voltage.l2": { "title": { "en": "Volage L2", "nl": "Voltage L2" } },
+            	"measure_voltage.l3": { "title": { "en": "Volage L3", "nl": "Voltage L3" } },
+            	"measure_current.l1": { "title": { "en": "Current L1", "nl": "Amperage L1" } },
+            	"measure_current.l2": { "title": { "en": "Current L2", "nl": "Amperage L2" } },
+            	"measure_current.l3": { "title": { "en": "Current L3", "nl": "Amperage L3" } },
+              "measure_power.l1.used": { "title": { "en": "Usage L1", "nl": "Verbruik L1" } },
+            	"measure_power.l2.used": { "title": { "en": "Usage L2", "nl": "Verbruik L2" } },
+            	"measure_power.l3.used": { "title": { "en": "Usage L3", "nl": "Verbruik L3" } },
+            	"measure_power.l1.returned": { "title": { "en": "Delivery L1", "nl": "Teruglevering L1" } },
+            	"measure_power.l2.returned": { "title": { "en": "Delivery L2", "nl": "Teruglevering L2" } },
+            	"measure_power.l3.returned": { "title": { "en": "Delivery L3", "nl": "Teruglevering L3" } },
+            	"measure_power.l1": { "title": { "en": "Sum usage L1", "nl": "Som verbruik L1" } },
+            	"measure_power.l2": { "title": { "en": "Sum usage L2", "nl": "Som verbruik L2" } },
+            	"measure_power.l3": { "title": { "en": "Sum usage L3", "nl": "Som verbruik L3" } },
+            	"measure_gas": { "title": { "en": "Gas flow", "nl": "Gasstroom" } },
+            	"meter_gas": { "title": { "en": "Total gas usage", "nl": "Totaal gasverbruik" } },
+            	"timestamp.gas": { "title": { "en": "Time gas data", "nl": "Tijd gas data" } }
+            },
             "energy": {
                 "cumulative": true
-            },
-            "mobile": {
-                "components": [
-				    {
-					    "id": "icon"
-					},
-                    {
-                        "id": "sensor",
-                        "capabilities": [
-                            "measure_power", 
-                            "meter_power", 
-                            "meter_gas",
-                            "flow_gas"
-                        ],
-                        "options": {
-                            "icons": {
-                                "flow_gas": "./drivers/sensor/assets/flow_gas.svg"
-                            }
-                        }
-                    }
-                ]
             },
             "images": {
                 "large": "drivers/dsmr/assets/images/large.png",
                 "small": "drivers/dsmr/assets/images/small.png"
             },
             "pair": [
-                { "id": "dsmr" }
+                { "id": "dsmr", "navigation": { "next": "select" } },
+                { "id": "select", "template": "list_devices", "navigation": { "next": "add" } },
+                { "id": "add" }
             ],
             "settings": [
                 {
@@ -148,68 +165,7 @@
                             "value": ""
                         }
                     ]
-                },
-                {
-                    "type": "group",
-                    "label": {
-                        "en": "Power producers",
-                        "nl": "Stroomproductie"
-                    },
-                    "children": [
-                        {
-                            "id": "compensate",
-                            "type": "checkbox",
-                            "label": {
-                                "en": "Compensate for power producers",
-                                "nl": "Compenseer voor stroomproductie"
-                            },
-                            "value": true
-                        },
-                        {
-                            "id": "onTime",
-                            "type": "checkbox",
-                            "label": {
-                                "en": "Use DSMR timestamp for measurement",
-                                "nl": "Gebruik slimme meter tijd voor meting"
-                            },
-                            "value": true
-                        },
-                        {
-                            "id": "timeOffset",
-                            "type": "number",
-                            "label": {
-                                "en": "Time offset to add to DSMR time (ms)",
-                                "nl": "Extra tijd toevoegen aan DSMR tijd (ms)"
-                            },
-                            "value": 1000,
-                            "attr": {
-                                "min": -4000,
-                                "max": 4000
-                            }
-                        }
-                    ]
                 }
-            ]
-        },
-        {
-            "id": "sensor",
-            "name": {
-                "en": "Meter Values",
-                "nl": "Meetwaarden"
-            },
-            "class": "sensor",
-            "capabilities": [ "measure_power" ],
-            "energy": {
-                "cumulative": true
-            },
-            "images": {
-                "large": "drivers/sensor/assets/images/large.png",
-                "small": "drivers/sensor/assets/images/small.png"
-            },
-            "pair": [
-                { "id": "select" },
-                { "id": "list_devices", "template": "list_devices", "navigation": { "next": "add_devices" } },
-                { "id": "add_devices", "template": "add_devices" }
             ]
         }
     ],
@@ -217,8 +173,5 @@
         { "dsmr-api": "*" },
         { "node-crc": "crc" },
         { "node-dsmr-parser": "parser" }
-    ],
-    "permissions": [    
-        "homey:app:org.sunspec"
     ]
 }
